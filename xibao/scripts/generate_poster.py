@@ -39,11 +39,27 @@ CHINESE_FONT = "/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf"
 LATIN_FONT   = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 
 # Badge + 祥云 band PNG assets (relative to this script's directory)
-_SCRIPT_DIR      = os.path.dirname(os.path.abspath(__file__))
-HE_BADGE_PNG     = os.path.join(_SCRIPT_DIR, "..", "assets", "he_badge.png")
-XIANGUYUN_TOP    = os.path.join(_SCRIPT_DIR, "..", "assets", "xianguyun_top.png")
-XIANGUYUN_BOT    = os.path.join(_SCRIPT_DIR, "..", "assets", "xianguyun_bot.png")
-MEIHUA_PNG       = os.path.join(_SCRIPT_DIR, "..", "assets", "meihua.png")   # optional
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_ASSETS_DIR = os.path.join(_SCRIPT_DIR, "..", "assets")
+
+
+def _resolve_asset(*candidate_names):
+    """
+    Return the first existing asset path from candidate file names.
+    If none exists, return the first candidate path (so downstream code
+    can still decide whether to fall back programmatically).
+    """
+    for name in candidate_names:
+        path = os.path.join(_ASSETS_DIR, name)
+        if os.path.isfile(path):
+            return path
+    return os.path.join(_ASSETS_DIR, candidate_names[0])
+
+
+HE_BADGE_PNG  = _resolve_asset("he_badge.png", "贺章.png")
+XIANGUYUN_TOP = _resolve_asset("xianguyun_top.png", "金色祥云波浪带上.png")
+XIANGUYUN_BOT = _resolve_asset("xianguyun_bot.png", "金色祥云波浪带下.png")
+MEIHUA_PNG    = _resolve_asset("meihua.png")  # optional
 
 # ── Brand colours ────────────────────────────────────────────────────────────────
 BG_YELLOW   = (251, 205,   5)   # warm golden yellow (main background)

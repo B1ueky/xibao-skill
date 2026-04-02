@@ -27,6 +27,28 @@ This skill automates the creation of celebration posters (喜报) and advertisin
 
 ---
 
+## Environment Setup (first run)
+
+Install dependencies before generating posters:
+
+```bash
+python3 -m pip install -r "{{SKILL_DIR}}/requirements.txt"
+```
+
+If your environment cannot access PyPI directly, install from a pre-downloaded wheel:
+
+```bash
+python3 -m pip install /path/to/Pillow-<version>-<python>-<platform>.whl
+```
+
+You can verify readiness with:
+
+```bash
+python3 "{{SKILL_DIR}}/scripts/check_skill_ready.py"
+```
+
+---
+
 ## Step 1 — Identify Input Materials
 
 Read every image file the user provides or points to. Look for:
